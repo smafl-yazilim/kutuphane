@@ -1,0 +1,25 @@
+{
+  "name": "smafl-kutuphane",
+  "license": "MIT",
+  "author": "Enes Genç",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@nuxtjs/google-fonts": "^3.0.0-1",
+    "@nuxtjs/i18n": "^8.0.0-beta.9",
+    "nuxt": "^3.2.0",
+    "nuxt-icon": "^0.2.11"
+  },
+  "dependencies": {
+    "@nuxtjs/tailwindcss": "^6.4.0",
+    "firebase": "^9.18.0",
+    "nuxt-vuefire": "^0.1.6",
+    "vuefire": "^3.1.0"
+  }
+}
