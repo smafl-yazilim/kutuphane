@@ -5,8 +5,8 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "build:ward:rules": "fireward -i fireward/firestore.ward > fireward/firestore.rules",
-    "build:ward:types": "fireward -i fireward/firestore.ward --lang=typescript > types/FirestoreTypes.d.ts",
+    "build:ward:rules": "fireward -i firestore.ward > firestore.rules",
+    "build:ward:types": "fireward -i firestore.ward --lang=typescript > types/FirestoreTypes.d.ts",
     "build:ward": "yarn run build:ward:rules && yarn run build:ward:types",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
