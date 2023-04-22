@@ -7,11 +7,14 @@ export default defineNuxtConfig({
     "@nuxtjs/google-fonts",
     "nuxt-vuefire",
   ],
+  build: {
+    transpile: ['@headlessui/vue']
+  },
   googleFonts: {
     families: {
       Inter: {
         wght: [400, 500, 600, 700],
-      }
+      },
     },
     download: true,
     inject: true,
