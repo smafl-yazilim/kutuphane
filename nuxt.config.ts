@@ -10,6 +10,11 @@ export default defineNuxtConfig({
   build: {
     transpile: ['@headlessui/vue']
   },
+  nitro: {
+    prerender: {
+      routes: ["/", "/login"],
+    },
+  },
   googleFonts: {
     families: {
       Inter: {
