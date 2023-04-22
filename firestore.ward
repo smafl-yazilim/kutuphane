@@ -1,0 +1,6 @@
+type User {
+    name: string,
+    surname: string,
+    studentNumber: string,
+    role: int,
+}
