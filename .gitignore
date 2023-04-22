@@ -134,3 +134,4 @@ dist
 .nitro/
 .output/
 .idea/
+firestore.rules
