@@ -12,6 +12,9 @@ const { user } = storeToRefs(auth);
 </script>
 
 <template>
+  <!--suppress VueMissingComponentImportInspection -->
+  <Toaster position="bottom-right" />
+
   <div class="absolute top-0 left-0 h-screen w-full bg-gray-200 -z-50"></div>
   <div class="flex flex-row h-screen w-full">
       <div class="flex flex-col w-1/4 h-screen bg-white py-8 gap-5 px-4">
@@ -37,6 +40,7 @@ const { user } = storeToRefs(auth);
           </div>
       </div>
       <div class="flex flex-col w-full">
+          <!--suppress TypeScriptUnresolvedReference -->
           <div class="flex flex-row py-6 px-8 font-bold text-3xl">
               {{ route.meta.title }}
           </div>

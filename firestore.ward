@@ -22,6 +22,13 @@ type Book = {
   },
 }
 
+type Settings = {
+  borrowingLimits: {
+    amount: int,
+    days: int,
+  },
+}
+
 function getAuthenticatedUser() {
   return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
 }

@@ -29,6 +29,12 @@ export type Book<Types extends FirewardTypes = FirewardTypes> = {
     }
   }
 }
+export type Settings<Types extends FirewardTypes = FirewardTypes> = {
+  borrowingLimits: {
+    amount: Types['number']
+    days: Types['number']
+  }
+}
 
 
 
