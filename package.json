@@ -12,7 +12,6 @@
     "deploy:firestore": "firebase deploy --only firestore:rules,firestore:indexes",
     "deploy:firestore-indexes": "firebase deploy --only firestore:indexes",
     "deploy:firestore-rules": "firebase deploy --only firestore:rules",
-    "deploy:hosting": "firebase deploy --only hosting",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",

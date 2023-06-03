@@ -4,15 +4,6 @@
     "indexes": "firestore.indexes.json",
     "predeploy": "yarn run build:ward"
   },
-  "hosting": {
-    "public": ".output/public",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "predeploy": "yarn run generate"
-  },
   "storage": {
     "rules": "storage.rules"
   }
