@@ -8,14 +8,12 @@ import {
   DialogPanel,
   DialogTitle,
 } from '@headlessui/vue'
+import { useAuthStore } from "~/stores/AuthStore";
 
 const { $toast } = useNuxtApp();
-const auth = useFirebaseAuth();
+const auth = useAuthStore();
+const firebaseAuth = useFirebaseAuth();
 const route = useRoute();
-
-const redirURL = route.query.redirect as string | undefined ?? "/dashboard";
-
-if (await getCurrentUser()) navigateTo(redirURL);
 
 const pwdResetModalIsOpen = ref(false);
 
@@ -31,7 +29,7 @@ const passwordResetEmail = ref("");
 async function resetPassword(e: Event) {
   e.preventDefault();
 
-  if (auth) await sendPasswordResetEmail(auth, passwordResetEmail.value).then(() => {
+  if (firebaseAuth) await sendPasswordResetEmail(firebaseAuth, passwordResetEmail.value).then(() => {
     $toast.success("Şifre sıfırlama bağlantısı e-posta adresinize gönderildi.");
   }).catch(err => {
     console.error(err);
@@ -55,9 +53,8 @@ const user = ref({
 async function login(e: Event) {
   e.preventDefault();
 
-  if (auth) await signInWithEmailAndPassword(auth, user.value.email, user.value.password).then(() => {
+  if (firebaseAuth) await signInWithEmailAndPassword(firebaseAuth, user.value.email, user.value.password).then(() => {
     $toast.success("Giriş başarılı.");
-    navigateTo(redirURL);
   }).catch(err => {
     console.error(err);
 

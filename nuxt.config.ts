@@ -6,9 +6,15 @@ export default defineNuxtConfig({
     "nuxt-icon",
     "@nuxtjs/google-fonts",
     "nuxt-vuefire",
+    "@pinia/nuxt",
   ],
   build: {
-    transpile: ['@headlessui/vue']
+    transpile: ['@headlessui/vue'],
+  },
+  vite: {
+    define: {
+      "global": {},
+    },
   },
   nitro: {
     prerender: {

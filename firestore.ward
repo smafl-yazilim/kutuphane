@@ -1,6 +1,62 @@
-type User {
-    name: string,
-    surname: string,
-    studentNumber: string,
-    role: int,
+type User = {
+  name: string,
+  surname: string,
+  studentNumber: int,
+  role: int,
+}
+
+type Book = {
+  name: string,
+  author: string,
+  publisher: string,
+  isbn?: string,
+  publicationDate?: string,
+  edition?: int,
+  classification: string,
+  copies: {
+    total: int,
+    borrowed: {
+      by: string,
+      until: timestamp,
+    },
+  },
+}
+
+function getAuthenticatedUser() {
+  return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+}
+
+function isModerator() {
+  let user = getAuthenticatedUser();
+  return user.role > 0;
+}
+
+function isAdmin() {
+  let user = getAuthenticatedUser();
+  return user.role > 1;
+}
+
+match /{document=**} {
+  allow read, write: if false;
+}
+
+match /users/{userId} is User {
+  allow read: if request.auth.uid == userId || isAdmin();
+  allow create, update, delete: if isModerator() && getAuthenticatedUser().role > resource.data.role && getAuthenticatedUser().role > request.resource.data.role;
+}
+
+match /books/{bookId} is Book {
+  allow read: if true;
+  allow create, update, delete: if isModerator();
+
+  match /copies/borrowed/{borrowData} {
+    allow create, update, delete: if isModerator();
+    allow read: if isModerator() || getAuthenticatedUser().uid == resource.data.by;
+  }
+}
+
+match /settings/{document=**} {
+  allow create, delete: if false;
+  allow read: if isModerator();
+  allow update: if isAdmin();
 }
