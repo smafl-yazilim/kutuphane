@@ -42,7 +42,7 @@ const saveSettings = async () => {
                 <DashGroupInputRow label="Ödünç Süresi (Gün):" type="number" min="0" v-model="settings.borrowingLimits.days" :disabled="user!.role < 2"/>
             </DashGroupBody>
             <DashGroupButtonRow>
-                <DashGroupButton label="Kaydet" icon="save" theme="SUCCESS" :disabled="user!.role < 2" @click="saveSettings" />
+                <ThemedButton label="Kaydet" icon="save" theme="SUCCESS" :disabled="user!.role < 2" @click="saveSettings" />
             </DashGroupButtonRow>
         </DashGroup>
     </div>

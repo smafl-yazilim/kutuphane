@@ -22,21 +22,21 @@ const { user } = storeToRefs(auth);
               <img src="~/assets/smafl.webp" alt="ŞMAFL" class="rounded-full w-2/5">
               <span class="font-semibold text-xl text-center">Şehit Münir Alkan Fen Lisesi</span>
           </div>
-          <NavbarRouteGroup label="KULLANICI">
-            <NavbarRoute to="/dashboard" label="Ödünç Bilgileri" icon="book-reader" />
-          </NavbarRouteGroup>
-          <NavbarRouteGroup label="YÖNETİM">
-              <NavbarRoute to="/dashboard/borrow" label="Ödünç İşlemleri" icon="book-reader" />
-              <NavbarRoute to="/dashboard/members" label="Üyelik İşlemleri" icon="user" />
-              <NavbarRoute to="/dashboard/books" label="Kitaplar" icon="books" />
-              <NavbarRoute to="/dashboard/settings" label="Ayarlar" icon="cog" />
-          </NavbarRouteGroup>
+          <SidebarRouteGroup label="KULLANICI">
+            <SidebarRoute to="/dashboard" label="Ödünç Bilgileri" icon="book-reader" />
+          </SidebarRouteGroup>
+          <SidebarRouteGroup label="YÖNETİM">
+              <SidebarRoute to="/dashboard/borrow" label="Ödünç İşlemleri" icon="book-reader" />
+              <SidebarRoute to="/dashboard/members" label="Üyelik İşlemleri" icon="user" />
+              <SidebarRoute to="/dashboard/books" label="Kitaplar" icon="books" />
+              <SidebarRoute to="/dashboard/settings" label="Ayarlar" icon="cog" />
+          </SidebarRouteGroup>
           <div class="flex flex-col gap-4 grow justify-end">
               <div class="flex flex-col gap-2 items-center justify-end grow ">
                   <icon name="uil:user" class="bg-gray-200 rounded-full text-gray-500 p-2 h-1/2 w-auto"/>
                   <span v-if="user" class="text-xl font-semibold text-center">{{ `${user.name} ${user.surname}` }}</span>
               </div>
-              <NavbarRoute to="/?logout" label="Çıkış Yap" icon="signout" />
+              <SidebarRoute to="/?logout" label="Çıkış Yap" icon="signout" />
           </div>
       </div>
       <div class="flex flex-col w-full">
