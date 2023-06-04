@@ -3,5 +3,5 @@
 </script>
 
 <template>
-    <input class="bg-gray-200 border-gray-200 rounded-lg p-2 w-1/3 disabled:text-gray-700 disabled:cursor-not-allowed"/>
+    <input class="bg-gray-200 border-gray-200 rounded-lg px-2 h-10 disabled:text-gray-700 disabled:cursor-not-allowed"/>
 </template>

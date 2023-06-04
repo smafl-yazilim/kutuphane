@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = defineProps<{
-    label?: string;
-    icon?: string;
+    label: string;
+    icon: string;
 }>();
 
 const uilIcon = computed(() => `uil:${props.icon}`);

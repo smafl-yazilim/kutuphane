@@ -1,4 +1,10 @@
-import { signOut as firebaseSignOut } from "firebase/auth";
+import {
+  EmailAuthProvider,
+  reauthenticateWithCredential,
+  signOut as firebaseSignOut,
+  updateEmail as firebaseUpdateEmail,
+  updatePassword as firebaseUpdatePassword,
+} from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { defineStore } from "pinia";
 import { User } from "~/types/FirestoreTypes";
@@ -11,10 +17,32 @@ export const useAuthStore = defineStore("AuthStore", () => {
 
   async function setUserData() {
     return user.value = auth.value?.uid
-      // typescript is not smart enough to know that auth.value?.uid is not undefined
-      ? await getDoc(doc(firestore, "users", auth.value?.uid!)).then(d => d.exists() ? d.data() as User : undefined)
+      ? await getDoc(doc(firestore, "users", auth.value.uid)).then(d => d.exists() ? d.data() as User : undefined)
       : undefined;
   }
+
+  async function updateEmail(email: string, password: string) {
+    if (!auth.value?.email) return;
+
+    await reauthenticateWithCredential(auth.value, EmailAuthProvider.credential(
+      auth.value.email,
+      password,
+    ));
+
+    return firebaseUpdateEmail(auth.value, email).then(setUserData);
+  }
+
+  async function updatePassword(oldPassword: string, newPassword: string) {
+    if (!auth.value?.email) return;
+
+    await reauthenticateWithCredential(auth.value, EmailAuthProvider.credential(
+      auth.value.email,
+      oldPassword,
+    ));
+
+    return firebaseUpdatePassword(auth.value, newPassword);
+  }
+
   setUserData();
 
   async function signOut() {
@@ -28,5 +56,5 @@ export const useAuthStore = defineStore("AuthStore", () => {
     }
   );
 
-  return { auth, user, signOut };
+  return { auth, user, updateEmail, updatePassword, signOut };
 });

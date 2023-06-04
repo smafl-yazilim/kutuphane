@@ -38,8 +38,8 @@ const saveSettings = async () => {
         <DashGroup>
             <DashGroupTitle label="Ödünç Limitleri" icon="book-reader" />
             <DashGroupBody class="flex flex-col gap-2">
-                <DashGroupInputRow label="Ödünç Kitap Sayısı:" type="number" min="0" v-model="settings.borrowingLimits.amount" :disabled="user!.role < 2"/>
-                <DashGroupInputRow label="Ödünç Süresi (Gün):" type="number" min="0" v-model="settings.borrowingLimits.days" :disabled="user!.role < 2"/>
+                <DashGroupInputRow label="Ödünç Kitap Sayısı:" class="w-1/3" type="number" min="0" v-model="settings.borrowingLimits.amount" :disabled="user!.role < 2"/>
+                <DashGroupInputRow label="Ödünç Süresi (Gün):" class="w-1/3" type="number" min="0" v-model="settings.borrowingLimits.days" :disabled="user!.role < 2"/>
             </DashGroupBody>
             <DashGroupButtonRow>
                 <ThemedButton label="Kaydet" icon="save" theme="SUCCESS" :disabled="user!.role < 2" @click="saveSettings" />

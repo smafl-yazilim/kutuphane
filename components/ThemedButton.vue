@@ -33,7 +33,7 @@ const uilIcon = computed(() => `uil:${props.icon}`);
 <template>
     <button
         type="submit"
-        class="flex flex-row items-center justify-center gap-2 px-4 py-2 w-full rounded-md border border-transparent font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 transition duration-150 disabled:cursor-not-allowed hover:bg-opacity-80 disabled:hover:bg-opacity-100 text-white"
+        class="flex flex-row items-center justify-center gap-2 px-4 py-2 w-full rounded-md border border-transparent font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 transition duration-150 disabled:cursor-not-allowed disabled:bg-opacity-60 hover:bg-opacity-80 text-white"
         :class="colorTheme"
     >
         <Icon :name="uilIcon" v-if="icon" class="h-5 w-auto"/>
