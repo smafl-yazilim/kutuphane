@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { definePageMeta } from "#imports";
 import { sendEmailVerification } from "firebase/auth";
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "~/stores/AuthStore";
@@ -6,6 +7,10 @@ import { useAuthStore } from "~/stores/AuthStore";
 const authStore = useAuthStore();
 const { auth, user } = storeToRefs(authStore);
 const { $toast } = useNuxtApp();
+
+definePageMeta({
+    title: "Kullanıcı Ayarları",
+});
 
 const mailData = ref({
     currentEmail: auth.value?.email,
@@ -20,11 +25,26 @@ const passwordData = ref({
     confirmPassword: "",
 });
 
+const updating = ref(false);
+
 async function updateMailAddress() {
     if (mailData.value.currentEmail === mailData.value.newEmail) return $toast.error("Yeni e-posta adresi mevcut e-posta adresiyle aynı.");
 
+    updating.value = true;
+
     await authStore.updateEmail(mailData.value.newEmail, mailData.value.password)
-        .then(() => $toast.success("E-Posta adresi güncellendi."))
+        .then(() => {
+            mailData.value = {
+                currentEmail: mailData.value.newEmail,
+                newEmail: "",
+                password: "",
+                verified: false,
+            };
+
+            if (auth.value) sendEmailVerification(auth.value, { url: location.href });
+
+            $toast.success("E-Posta adresi güncellendi.");
+        })
         .catch(err => {
         console.error(err);
 
@@ -35,10 +55,14 @@ async function updateMailAddress() {
 
         $toast.error(errMsg);
     });
+
+    updating.value = false;
 }
 
 async function updatePassword() {
     if (passwordData.value.newPassword !== passwordData.value.confirmPassword) return $toast.error("Yeni şifreler birbiriyle uyuşmuyor.");
+
+    updating.value = true;
 
     await authStore.updatePassword(passwordData.value.oldPassword, passwordData.value.newPassword)
         .then(() => $toast.success("Şifre güncellendi."))
@@ -51,10 +75,12 @@ async function updatePassword() {
 
         $toast.error(errMsg);
     });
+
+    updating.value = false;
 }
 function resendVerification() {
     if (!auth.value) return;
-    return sendEmailVerification(auth.value)
+    return sendEmailVerification(auth.value, { url: location.href })
         .then(() => $toast.success("Doğrulama e-postası gönderildi."))
         .catch(() => $toast.error("Doğrulama e-postası gönderilemedi."));
 }
@@ -79,7 +105,13 @@ function resendVerification() {
                 </Alert>
             </DashGroupBody>
             <DashGroupButtonRow>
-                <ThemedButton label="Güncelle" icon="save" theme="SUCCESS" @click="updateMailAddress" :disabled="!mailData.newEmail || !mailData.password" />
+                <ThemedButton
+                    label="Güncelle"
+                    icon="save"
+                    theme="SUCCESS"
+                    @click="updateMailAddress"
+                    :disabled="!mailData.newEmail || !mailData.password || updating"
+                />
             </DashGroupButtonRow>
         </DashGroup>
         <DashGroup>
@@ -90,7 +122,13 @@ function resendVerification() {
                 <DashGroupInputCol label="Yeni Şifre (Tekrar)" type="password" name="confirm-password" v-model="passwordData.confirmPassword" autocomplete="new-password" />
             </DashGroupBody>
             <DashGroupButtonRow>
-                <ThemedButton label="Güncelle" icon="save" theme="SUCCESS" @click="updatePassword" :disabled="!passwordData.oldPassword || !passwordData.newPassword || !passwordData.confirmPassword"/>
+                <ThemedButton
+                    label="Güncelle"
+                    icon="save"
+                    theme="SUCCESS"
+                    @click="updatePassword"
+                    :disabled="!passwordData.oldPassword || !passwordData.newPassword || !passwordData.confirmPassword || updating"
+                />
             </DashGroupButtonRow>
         </DashGroup>
     </div>
