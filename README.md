@@ -9,7 +9,7 @@
 
 **Backend:** Node, Nitro
 
-**Backend Services:** Algolia Search
+**Backend Services:** Firebase, Algolia Search
 
 
 
