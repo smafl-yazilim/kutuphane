@@ -11,11 +11,6 @@ export default defineNuxtConfig({
   build: {
     transpile: ['@headlessui/vue'],
   },
-  vite: {
-    define: {
-      "global": {},
-    },
-  },
   nitro: {
     prerender: {
       routes: ["/", "/login"],
