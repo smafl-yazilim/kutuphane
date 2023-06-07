@@ -48,7 +48,7 @@ match /{document=**} {
 }
 
 match /users/{userId} is User {
-  allow read: if request.auth.uid == userId || isAdmin();
+  allow read: if request.auth.uid == userId || isModerator();
   allow create, update, delete: if isModerator() && getAuthenticatedUser().role > resource.data.role && getAuthenticatedUser().role > request.resource.data.role;
 }
 
@@ -62,7 +62,7 @@ match /books/{bookId} is Book {
   }
 }
 
-match /settings/{document=**} {
+match /settings/{document=**} is Settings {
   allow create, delete: if false;
   allow read: if isModerator();
   allow update: if isAdmin();
