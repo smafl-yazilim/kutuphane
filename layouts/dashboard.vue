@@ -14,6 +14,7 @@ const { user } = storeToRefs(auth);
 <template>
   <!--suppress VueMissingComponentImportInspection -->
   <Toaster position="bottom-right" />
+  <NuxtLoadingIndicator />
 
   <div class="absolute top-0 left-0 h-screen w-full bg-gray-200 -z-50"></div>
   <div class="flex flex-row h-screen w-full">
@@ -28,7 +29,7 @@ const { user } = storeToRefs(auth);
           </SidebarRouteGroup>
           <SidebarRouteGroup label="YÖNETİM">
               <SidebarRoute to="/dashboard/borrow" label="Ödünç İşlemleri" icon="book-reader" />
-              <SidebarRoute to="/dashboard/members" label="Üyelik İşlemleri" icon="user" />
+              <SidebarRoute to="/dashboard/users" label="Üyelik İşlemleri" icon="user" />
               <SidebarRoute to="/dashboard/books" label="Kitaplar" icon="books" />
               <SidebarRoute to="/dashboard/settings" label="Ayarlar" icon="cog" />
           </SidebarRouteGroup>
