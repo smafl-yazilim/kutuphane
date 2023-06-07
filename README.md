@@ -1,42 +1,70 @@
-# Nuxt 3 Minimal Starter
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+# Şehit Münir Alkan Fen Lisesi Dijital Kütüphane
 
-## Setup
 
-Make sure to install the dependencies:
 
-```bash
-# yarn
-yarn install
+## Tech Stack
 
-# npm
-npm install
+**Client:** Vue, Nuxt, TailwindCSS
 
-# pnpm
-pnpm install
-```
+**Backend:** Node, Nitro
 
-## Development Server
+**Backend Services:** Algolia Search
 
-Start the development server on http://localhost:3000
 
-```bash
-npm run dev
-```
 
-## Production
+## Authors
 
-Build the application for production:
+- [@enxg](https://www.github.com/enxg)
+
+
+## Run Locally
+
+Clone the project
 
 ```bash
-npm run build
+  git clone https://github.com/smafl-yazilim/kutuphane.git
 ```
 
-Locally preview production build:
+Go to the project directory
 
 ```bash
-npm run preview
+  cd kutuphane
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Install dependencies
+
+```bash
+  yarn install
+```
+
+Start the development server
+
+```bash
+  yarn run dev
+```
+
+
+## Deployment
+
+Build the frontend
+
+```bash
+  yarn run build
+```
+
+Run the nitro server
+
+```bash
+  node .output/server/index.mjs 
+```
+
+Deploy Firebase Rules & Indexes
+```bash
+  yarn run deploy
+```
+
+## License
+
+[MIT](https://github.com/smafl-yazilim/kutuphane/blob/main/LICENSE/)
+
