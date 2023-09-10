@@ -32,6 +32,11 @@ export default defineNuxtConfig({
     inject: true,
   },
 
+  algolia: {
+    apiKey: "689aeae452036a3ca5aff36fc825189a",
+    applicationId: "ENWCEQD944",
+  },
+
   vuefire: {
     auth: true,
     appCheck: {
