@@ -1,7 +1,4 @@
-
 # Şehit Münir Alkan Fen Lisesi Dijital Kütüphane
-
-
 
 ## Tech Stack
 
@@ -11,12 +8,9 @@
 
 **Backend Services:** Firebase, Algolia Search
 
-
-
 ## Authors
 
 - [@enxg](https://www.github.com/enxg)
-
 
 ## Run Locally
 
@@ -44,7 +38,6 @@ Start the development server
   yarn run dev
 ```
 
-
 ## Deployment
 
 Build the frontend
@@ -56,10 +49,11 @@ Build the frontend
 Run the nitro server
 
 ```bash
-  node .output/server/index.mjs 
+  node .output/server/index.mjs
 ```
 
 Deploy Firebase Rules & Indexes
+
 ```bash
   yarn run deploy
 ```
@@ -67,4 +61,3 @@ Deploy Firebase Rules & Indexes
 ## License
 
 [MIT](https://github.com/smafl-yazilim/kutuphane/blob/main/LICENSE/)
-

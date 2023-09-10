@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row items-center">
+  <div class="mt-4 flex flex-row">
     <slot />
   </div>
 </template>

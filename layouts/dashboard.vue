@@ -9,6 +9,7 @@ const route = useRoute();
 const auth = useAuthStore();
 const { user } = storeToRefs(auth);
 
+const sidebar = ref(false);
 </script>
 
 <template>
@@ -18,41 +19,84 @@ const { user } = storeToRefs(auth);
 
   <div class="absolute top-0 left-0 h-screen w-full bg-gray-200 -z-50"></div>
   <div class="flex flex-row h-screen w-full">
-      <div class="flex flex-col w-1/4 h-screen bg-white py-8 gap-5 px-4">
-          <div class="flex flex-col items-center gap-2 mb-2">
-              <img src="~/assets/smafl.webp" alt="ŞMAFL" class="rounded-full w-2/5">
-              <span class="font-semibold text-xl text-center">Şehit Münir Alkan Fen Lisesi</span>
-          </div>
-          <SidebarRouteGroup label="KULLANICI">
-            <SidebarRoute to="/dashboard" label="Ödünç Bilgileri" icon="book-reader" />
-            <SidebarRoute to="/dashboard/user" label="Kullanıcı Ayarları" icon="user-check"/>
-          </SidebarRouteGroup>
-          <SidebarRouteGroup label="YÖNETİM">
-              <SidebarRoute to="/dashboard/borrow" label="Ödünç İşlemleri" icon="book-reader" />
-              <SidebarRoute to="/dashboard/users" label="Üyelik İşlemleri" icon="user" />
-              <SidebarRoute to="/dashboard/books" label="Kitaplar" icon="books" />
-              <SidebarRoute to="/dashboard/settings" label="Ayarlar" icon="cog" />
-          </SidebarRouteGroup>
-          <div class="flex flex-col gap-4 grow justify-end">
-              <div class="flex flex-col gap-2 items-center justify-end grow ">
-                  <icon name="uil:user" class="bg-gray-200 rounded-full text-gray-500 p-2 h-3/5 w-auto"/>
-                  <span v-if="user" class="text-xl font-semibold text-center">{{ `${user.name} ${user.surname}` }}</span>
-              </div>
-              <SidebarRoute to="/?logout" label="Çıkış Yap" icon="signout" />
-          </div>
+    <div
+      class="absolute left-3 top-3 p-3 bg-white/50 rounded-lg z-[100] md:hidden"
+      @click="sidebar = !sidebar"
+    >
+      <Icon v-if="sidebar" name="uil:multiply" class="w-5 h-auto" />
+      <Icon v-else name="uil:bars" class="text-2xl" />
+    </div>
+    <div
+      :class="sidebar ? 'flex' : 'hidden'"
+      class="md:flex flex-col w-full md:w-80 h-screen bg-white py-8 gap-5 px-4 fixed md:relative z-50 overflow-y-auto md:overflow-hidden"
+    >
+      <div class="flex flex-col items-center gap-2 mb-2">
+        <img src="~/assets/smafl.webp" alt="ŞMAFL" class="rounded-full w-2/5" />
+        <span class="font-semibold text-xl text-center"
+          >Şehit Münir Alkan Fen Lisesi</span
+        >
       </div>
-      <div class="flex flex-col w-full">
-          <!--suppress TypeScriptUnresolvedReference -->
-          <div class="flex flex-row py-6 px-8 font-bold text-3xl">
-              {{ route.meta.title }}
-          </div>
-          <div class="w-full h-full px-8 py-4">
-              <slot />
-          </div>
+      <SidebarRouteGroup label="KULLANICI">
+        <SidebarRoute
+          to="/dashboard"
+          label="Ödünç Bilgileri"
+          icon="book-reader"
+        />
+        <SidebarRoute
+          to="/dashboard/user"
+          label="Kullanıcı Ayarları"
+          icon="user-check"
+        />
+      </SidebarRouteGroup>
+      <SidebarRouteGroup label="YÖNETİM">
+        <SidebarRoute
+          to="/dashboard/borrow"
+          label="Ödünç İşlemleri"
+          icon="book-reader"
+        />
+        <SidebarRoute
+          to="/dashboard/users"
+          label="Üyelik İşlemleri"
+          icon="user"
+        />
+        <SidebarRoute to="/dashboard/books" label="Kitaplar" icon="books" />
+        <SidebarRoute to="/dashboard/settings" label="Ayarlar" icon="cog" />
+        <Alert theme="WARNING" class="md:hidden">
+          <span
+            >Yönetim fonksiyonları mobil cihazlarla uyumlu olmayabilir.</span
+          >
+        </Alert>
+      </SidebarRouteGroup>
+      <div class="flex flex-col gap-4 grow justify-end">
+        <div class="flex flex-col gap-2 items-center justify-end grow">
+          <!--
+          <icon
+            name="uil:user"
+            class="bg-gray-200 rounded-full text-gray-500 p-2 h-3/5 w-auto"
+          />
+          -->
+          <span v-if="user" class="text-xl font-semibold text-center">{{
+            `${user.name} ${user.surname}`
+          }}</span>
+        </div>
+        <SidebarRoute to="/?logout" label="Çıkış Yap" icon="signout" />
       </div>
+    </div>
+    <div class="flex flex-col w-full overflow-y-auto">
+      <!--suppress TypeScriptUnresolvedReference -->
+      <div class="flex flex-row py-6 px-8 font-bold text-3xl">
+        {{ route.meta.title }}
+      </div>
+      <div class="w-full h-full px-8 py-4 mb-8">
+        <slot />
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
-
+html,
+body {
+  @apply bg-gray-200;
+}
 </style>

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-  import { definePageMeta } from "#imports";
+import { definePageMeta } from "#imports";
 
-  definePageMeta({
-    middleware: ["auth"],
-  });
+definePageMeta({
+  middleware: ["auth"],
+});
 </script>
 
 <template>
   <NuxtLayout name="dashboard">
-    <NuxtPage/>
+    <NuxtPage />
   </NuxtLayout>
 </template>

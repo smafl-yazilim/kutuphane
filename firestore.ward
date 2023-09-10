@@ -1,7 +1,7 @@
 type User = {
   name: string,
   surname: string,
-  studentNumber: int,
+  studentNumber: string,
   role: int,
 }
 
@@ -11,14 +11,15 @@ type Book = {
   publisher: string,
   isbn?: string,
   publicationDate?: string,
+  publicationPlace?: string,
   edition?: int,
   classification: string,
+  category: string,
   copies: {
     total: int,
-    borrowed: {
-      by: string,
-      until: timestamp,
-    },
+    borrowed: int,
+    borrowedBy: string[],
+    borrowedAt: map,
   },
 }
 
@@ -49,21 +50,22 @@ match /{document=**} {
 
 match /users/{userId} is User {
   allow read: if request.auth.uid == userId || isModerator();
-  allow create, update, delete: if isModerator() && getAuthenticatedUser().role > resource.data.role && getAuthenticatedUser().role > request.resource.data.role;
+
+  allow create, update, delete:
+    if isModerator()
+      && getAuthenticatedUser().role > resource.data.role
+      && getAuthenticatedUser().role > request.resource.data.role
+      && request.resource.data.studentNumber.matches('^\\d+$');
 }
 
 match /books/{bookId} is Book {
   allow read: if true;
-  allow create, update, delete: if isModerator();
-
-  match /copies/borrowed/{borrowData} {
-    allow create, update, delete: if isModerator();
-    allow read: if isModerator() || getAuthenticatedUser().uid == resource.data.by;
-  }
+  allow create, update: if isModerator();
+  allow delete: if isModerator();
 }
 
 match /settings/{document=**} is Settings {
   allow create, delete: if false;
-  allow read: if isModerator();
+  allow read: true;
   allow update: if isAdmin();
 }

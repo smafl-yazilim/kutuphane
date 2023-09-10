@@ -1,21 +1,27 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   ssr: false,
+
   modules: [
     "@nuxtjs/tailwindcss",
     "nuxt-icon",
     "@nuxtjs/google-fonts",
     "nuxt-vuefire",
     "@pinia/nuxt",
+    "@nuxtjs/algolia",
+    "@vueuse/nuxt",
   ],
+
   build: {
-    transpile: ['@headlessui/vue'],
+    transpile: ["@headlessui/vue"],
   },
+
   nitro: {
     prerender: {
       routes: ["/", "/login"],
     },
   },
+
   googleFonts: {
     families: {
       Inter: {
@@ -25,6 +31,7 @@ export default defineNuxtConfig({
     download: true,
     inject: true,
   },
+
   vuefire: {
     auth: true,
     appCheck: {
@@ -41,5 +48,9 @@ export default defineNuxtConfig({
       messagingSenderId: "80599854371",
       appId: "1:80599854371:web:016c42d1d86413ee0df096",
     },
+  },
+
+  devtools: {
+    enabled: true,
   },
 });
