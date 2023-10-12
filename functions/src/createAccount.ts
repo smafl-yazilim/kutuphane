@@ -32,7 +32,7 @@ export const createAccount = onCall(
           .get()
           .then(snapshot => snapshot.data())
       : null;
-    if (!user || user.role < 1)
+    if (!user || user.role < 1 || (user.role < 2 && role >= user.role))
       throw new HttpsError("unauthenticated", "Bu işlem için yetkiniz yok.");
 
     const uid = await auth.createUser({ email }).then(user => user.uid);
