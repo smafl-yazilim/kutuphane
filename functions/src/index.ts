@@ -4,3 +4,4 @@ initializeApp();
 
 export * from "./createAccount.js";
 export * from "./borrowBook.js";
+export * from "./returnBook.js";

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{
-  items: string[];
+  items: Array<string | [string, string]>;
   isTitle: boolean;
   actions?: Array<{
     icon: string;
@@ -30,7 +30,7 @@ const rowStyle = computed(() => (props.isTitle ? "font-semibold" : ""));
 <template>
   <div :class="[grid, bg]" class="first:rounded-t-lg last:rounded-b-lg">
     <div v-for="item in items" class="flex py-2 px-4" :class="rowStyle">
-      <span>{{ item }}</span>
+      <span :class="item[1] ?? ''">{{ Array.isArray(item) ? item[0] : item }}</span>
     </div>
     <div class="flex flex-row py-2 px-4 gap-2 w-32">
       <div class="flex flex-row gap-2 w-32">
