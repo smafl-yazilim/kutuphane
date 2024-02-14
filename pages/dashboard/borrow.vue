@@ -120,20 +120,22 @@ async function searchByStudent() {
   }
 
   const books = await getDocs(query(booksRef, where("copies.borrowedBy", "array-contains", userDoc.id)))
-      .then(x => x.docs.map(a => ({ ...(a.data()), id: a.id, } as Book & { id: string })));
+      .then(x => x.docs.map(a => {
+        const data = a.data() as Book;
+        const expiry = dateCal(data.copies.borrowedAt[userDoc.id] as Timestamp);
+        return { ...data, id: a.id,...expiry };
+      }));
   const user = userDoc.data() as User;
 
   console.log(books, user, userDoc.id);
-
-  const { brrwD, expired } = dateCal(books[0].copies.borrowedAt[userDoc.id] as Timestamp);
 
   searchResults.value = books.map(x => ({
     bookName: x.name,
     bookClassification: x.classification,
     studentName: `${ user.name } ${ user.surname }`,
     studentNumber: user.studentNumber,
-    brrwD,
-    expired,
+    brrwD: x.brrwD,
+    expired: x.expired,
     bookId: x.id,
     userId: userDoc.id,
   }));
