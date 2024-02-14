@@ -11,6 +11,7 @@ import {
 const props = defineProps<{
   title: string;
   modelValue: boolean;
+  screen?: boolean;
 }>();
 
 const emit = defineEmits(["update:modelValue"]);
@@ -49,7 +50,8 @@ function closeModal() {
             leave-to="opacity-0 scale-95"
           >
             <DialogPanel
-              class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+              class="w-full transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+              :class="screen ? 'max-w-screen max-h-screen' : 'max-w-md'"
             >
               <DialogTitle
                 as="h3"
